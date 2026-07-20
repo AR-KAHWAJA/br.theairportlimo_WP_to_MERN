@@ -61,6 +61,14 @@ function CalendarCheck(props) {
   );
 }
 
+function CalendarBlank(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M7 3v4M17 3v4M4 9h16M5 5h14v15H5z" />
+    </IconBase>
+  );
+}
+
 function Clock(props) {
   return (
     <IconBase {...props}>
@@ -194,6 +202,15 @@ function MessageCircle(props) {
   return (
     <IconBase {...props}>
       <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 20l1.3-5A8.5 8.5 0 1 1 21 11.5z" />
+    </IconBase>
+  );
+}
+
+function MinusSquare(props) {
+  return (
+    <IconBase {...props} fill="currentColor" stroke="none">
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <rect x="8" y="11" width="8" height="2" fill="#ffffff" />
     </IconBase>
   );
 }
@@ -692,25 +709,19 @@ function ReservationForm() {
   return (
     <form className="reservation-form" onSubmit={submit}>
       <div className="mini-row">
-        <label>
-          <CalendarDays size={14} />
-          <input
-            type="date"
-            value={form.date}
-            onChange={(event) => setForm({ ...form, date: event.target.value })}
-          />
-        </label>
-        <label>
-          <Clock size={14} />
-          <input
-            type="time"
-            value={form.time}
-            onChange={(event) => setForm({ ...form, time: event.target.value })}
-          />
-        </label>
+        <input
+          placeholder="Prefered Date"
+          value={form.date}
+          onChange={(event) => setForm({ ...form, date: event.target.value })}
+        />
+        <input
+          placeholder="Prefered Time"
+          value={form.time}
+          onChange={(event) => setForm({ ...form, time: event.target.value })}
+        />
       </div>
       <input
-        placeholder="Pickup"
+        placeholder="Pick up"
         value={form.pickup}
         onChange={(event) => setForm({ ...form, pickup: event.target.value })}
       />
@@ -739,6 +750,35 @@ function ReservationForm() {
       <button type="submit">Send</button>
       {status && <small className="form-status">{status}</small>}
     </form>
+  );
+}
+
+function BookingClock() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    function updateTime() {
+      setTime(
+        new Date().toLocaleString("en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true
+        })
+      );
+    }
+
+    updateTime();
+    const timer = window.setInterval(updateTime, 60000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="booking-clock" aria-label="Current time">
+      <Clock size={14} />
+      <span>{time}</span>
+    </div>
   );
 }
 
@@ -773,18 +813,19 @@ function HomePage() {
           <div className="booking-card">
             <div className="booking-art">
               <h3>Fast, Easy Reservations Request</h3>
+              <BookingClock />
               <ReservationForm />
             </div>
             <div className="benefits">
               <h3>Benefits</h3>
               <p>
-                <CheckCircle2 size={16} /> Choose your exact pickup time up to 60 days in advance.
+                <CalendarBlank size={16} /> Choose your exact pickup time up to 90 days in advance.
               </p>
               <p>
-                <CheckCircle2 size={16} /> Extra wait time included to meet your ride.
+                <Clock size={16} /> Extra wait time included to meet your ride.
               </p>
               <p>
-                <CheckCircle2 size={16} /> Cancel at no charge up to 60 minutes in advance.
+                <MinusSquare size={16} /> Cancel at no charge up to 60 minutes in advance.
               </p>
             </div>
           </div>
