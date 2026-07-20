@@ -977,21 +977,33 @@ function HomePage() {
         </section>
 
         <section className="section affiliate-home">
-          <SectionIntro chip="Affiliate" title="Join Our Affiliate Network" />
-          <div className="two-col">
-            <div>
+          <div className="affiliate-feature">
+            <div className="affiliate-feature-copy">
               <span className="line-label">Partner With BlinkRide</span>
               <h3>Join Our Trusted Affiliate & Partner Network</h3>
               <p>
                 Become a part of BlinkRide's growing affiliate network and help shape the future
-                of smart, reliable transportation. We partner with providers, airport transfer
-                services, travel agencies, and corporate partners to deliver seamless mobility.
+                of smart, reliable transportation. We partner with transportation providers,
+                airport transfer services, travel agencies, and corporate partners to deliver
+                seamless mobility solutions with professionalism and convenience.
+              </p>
+              <p>
+                By partnering with BlinkRide, you can expand your reach, connect with more
+                customers, and grow with a trusted platform focused on quality, safety, and
+                customer satisfaction. Together, we create smoother journeys and stronger
+                opportunities every day.
               </p>
               <ButtonLink className="outline-btn" href="/affiliates/">
                 Discover More
               </ButtonLink>
             </div>
-            <div className="blank-media raised" />
+            <div className="affiliate-feature-media">
+              <img
+                className="affiliate-feature-image"
+                src={`${A}affilates-image.webp`}
+                alt="BlinkRide affiliate partnership handshake"
+              />
+            </div>
           </div>
         </section>
       </main>

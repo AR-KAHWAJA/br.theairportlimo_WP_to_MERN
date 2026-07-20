@@ -1036,6 +1036,79 @@ textarea {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
 }
 
+.affiliate-home {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+.affiliate-feature {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 410px) 407px;
+  align-items: center;
+  gap: 58px;
+}
+
+.affiliate-feature-copy {
+  padding: 0;
+}
+
+.affiliate-feature-copy .line-label {
+  display: block;
+  margin-bottom: 14px;
+  color: #050505;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.affiliate-feature-copy .line-label::before {
+  display: none;
+}
+
+.affiliate-feature-copy h3 {
+  margin: 0 0 16px;
+  color: #050505;
+  font-size: 26px;
+  line-height: 1.12;
+  font-weight: 900;
+}
+
+.affiliate-feature-copy p {
+  margin: 0 0 14px;
+  color: #050505;
+  font-size: 15px;
+  line-height: 1.32;
+  font-weight: 500;
+  text-align: justify;
+}
+
+.affiliate-feature-copy .btn {
+  width: max-content;
+  min-height: 32px;
+  margin-top: 12px;
+  padding: 0 22px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.affiliate-feature-media {
+  width: 407px;
+  height: 374px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+}
+
+.affiliate-feature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.17);
+  transform-origin: 66% 45%;
+}
+
 .raised {
   border: 1px solid #d8d8d8;
   border-radius: 8px;
@@ -1632,6 +1705,26 @@ textarea {
     font-size: 20px;
   }
 
+  .affiliate-home {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .affiliate-feature {
+    width: min(720px, 100%);
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .affiliate-feature-copy p {
+    text-align: left;
+  }
+
+  .affiliate-feature-media {
+    width: 100%;
+    height: 340px;
+  }
+
   .mini-row {
     grid-template-columns: 1fr;
   }
@@ -1764,6 +1857,20 @@ textarea {
 
   .driver-home-panel .check-list li {
     font-size: 14px;
+  }
+
+  .affiliate-home {
+    padding-top: 46px;
+    padding-bottom: 46px;
+  }
+
+  .affiliate-feature-copy h3 {
+    font-size: 23px;
+  }
+
+  .affiliate-feature-media {
+    height: 285px;
+    border-radius: 18px;
   }
 
   .small-card-row {
