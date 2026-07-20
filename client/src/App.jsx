@@ -659,13 +659,14 @@ function SplitPanel({
   image,
   imageAlt = "",
   reverse = false,
+  className = "",
   bullets,
   steps,
   buttonText,
   blank = false
 }) {
   return (
-    <article className={`split-panel ${reverse ? "reverse" : ""}`}>
+    <article className={["split-panel", reverse ? "reverse" : "", className].filter(Boolean).join(" ")}>
       <div className={`split-media ${blank ? "blank-media" : ""}`}>
         {!blank && image && <img src={`${A}${image}`} alt={imageAlt} />}
       </div>
@@ -959,9 +960,10 @@ function HomePage() {
           </div>
         </section>
 
-        <section className="section">
-          <SectionIntro chip="Driver" title="Drive Smart. Earn Big." />
+        <section className="section home-driver-section">
+          <SectionIntro title="Drive Smart. Earn Big." />
           <SplitPanel
+            className="driver-home-panel"
             image="Driver-section.webp"
             eyebrow="Drive More. Earn More. Stay in Control."
             title="Drive on your schedule and earn without limits."

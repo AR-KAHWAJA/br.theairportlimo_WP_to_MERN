@@ -686,6 +686,75 @@ textarea {
   margin-top: 28px;
 }
 
+.home-driver-section {
+  padding-top: 30px;
+  padding-bottom: 56px;
+}
+
+.home-driver-section .section-intro {
+  margin-bottom: 34px;
+}
+
+.home-driver-section .section-intro h2 {
+  font-size: 30px;
+}
+
+.driver-home-panel {
+  width: min(960px, 100%);
+  min-height: 336px;
+  margin: 0 auto;
+  grid-template-columns: 40% 60%;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+}
+
+.driver-home-panel .split-media {
+  min-height: 336px;
+}
+
+.driver-home-panel .split-media img {
+  object-position: center top;
+}
+
+.driver-home-panel .split-copy {
+  padding: 36px 36px;
+}
+
+.driver-home-panel .line-label {
+  margin-bottom: 16px;
+  font-weight: 800;
+  color: #050505;
+}
+
+.driver-home-panel .line-label::before {
+  display: none;
+}
+
+.driver-home-panel .split-copy h3 {
+  max-width: 470px;
+  margin-bottom: 18px;
+  font-size: 28px;
+  line-height: 1.05;
+}
+
+.driver-home-panel .check-list {
+  gap: 14px;
+  margin-top: 0;
+}
+
+.driver-home-panel .check-list li {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.driver-home-panel .split-copy .btn {
+  min-height: 40px;
+  margin-top: 24px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
 .booking-card,
 .contact-card,
 .form-split,
@@ -1514,6 +1583,26 @@ textarea {
     padding: 32px 24px;
   }
 
+  .driver-home-panel {
+    min-height: 0;
+    border-radius: 22px;
+  }
+
+  .driver-home-panel .split-media,
+  .driver-home-panel.split-panel.reverse .split-media {
+    min-height: 320px;
+    border-right: 0;
+    border-bottom: 1px solid #d4d4d4;
+  }
+
+  .driver-home-panel .split-copy {
+    padding: 30px 26px 34px;
+  }
+
+  .driver-home-panel .split-copy h3 {
+    font-size: 25px;
+  }
+
   .booking-card {
     width: min(720px, 100%);
   }
@@ -1651,6 +1740,30 @@ textarea {
   .service-card img {
     width: 100%;
     height: 255px;
+  }
+
+  .home-driver-section .section-intro {
+    margin-bottom: 24px;
+  }
+
+  .driver-home-panel {
+    border-radius: 18px;
+  }
+
+  .driver-home-panel .split-media {
+    min-height: 260px;
+  }
+
+  .driver-home-panel .split-copy {
+    padding: 26px 20px 30px;
+  }
+
+  .driver-home-panel .split-copy h3 {
+    font-size: 23px;
+  }
+
+  .driver-home-panel .check-list li {
+    font-size: 14px;
   }
 
   .small-card-row {
