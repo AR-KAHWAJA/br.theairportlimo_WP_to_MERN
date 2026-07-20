@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const A = "/assets/";
 
@@ -325,6 +325,109 @@ const homeSlides = [
   }
 ];
 
+function parseCounterValue(value) {
+  const text = String(value);
+  const match = text.match(/^([^0-9-]*)(-?[\d,]+(?:\.\d+)?)(.*)$/);
+
+  if (!match) return null;
+
+  const target = Number(match[2].replaceAll(",", ""));
+  if (!Number.isFinite(target)) return null;
+
+  return {
+    prefix: match[1],
+    target,
+    suffix: match[3],
+    decimals: (match[2].split(".")[1] || "").length
+  };
+}
+
+function formatCounterValue(value, parsed) {
+  const fixed = parsed.decimals > 0 ? value.toFixed(parsed.decimals) : String(Math.round(value));
+  const [whole, fraction] = fixed.split(".");
+  const formattedWhole = Number(whole).toLocaleString("en-US");
+
+  return `${parsed.prefix}${formattedWhole}${fraction ? `.${fraction}` : ""}${parsed.suffix}`;
+}
+
+function CountUpValue({ value, duration = 1500 }) {
+  const elementRef = useRef(null);
+  const hasAnimated = useRef(false);
+  const [displayValue, setDisplayValue] = useState(() => {
+    const parsed = parseCounterValue(value);
+    return parsed ? formatCounterValue(0, parsed) : value;
+  });
+
+  useEffect(() => {
+    const parsed = parseCounterValue(value);
+    if (!parsed) {
+      setDisplayValue(value);
+      return undefined;
+    }
+
+    let frameId;
+    let observer;
+    let cancelled = false;
+    hasAnimated.current = false;
+    setDisplayValue(formatCounterValue(0, parsed));
+
+    function animate() {
+      if (hasAnimated.current || cancelled) return;
+      hasAnimated.current = true;
+
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        setDisplayValue(value);
+        return;
+      }
+
+      const startTime = window.performance.now();
+
+      function step(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        setDisplayValue(formatCounterValue(parsed.target * eased, parsed));
+
+        if (progress < 1) {
+          frameId = window.requestAnimationFrame(step);
+        } else {
+          setDisplayValue(value);
+        }
+      }
+
+      frameId = window.requestAnimationFrame(step);
+    }
+
+    const element = elementRef.current;
+    if (!element || !("IntersectionObserver" in window)) {
+      animate();
+    } else {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            animate();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.35 }
+      );
+      observer.observe(element);
+    }
+
+    return () => {
+      cancelled = true;
+      if (frameId) window.cancelAnimationFrame(frameId);
+      if (observer) observer.disconnect();
+    };
+  }, [duration, value]);
+
+  return (
+    <span className="stat-value" ref={elementRef} style={{ "--stat-width": `${String(value).length}ch` }}>
+      {displayValue}
+    </span>
+  );
+}
+
 function currentPath() {
   const path = window.location.pathname.replace(/\/$/, "");
   return path || "/";
@@ -428,7 +531,9 @@ function Hero({ eyebrow, title, highlight, image, children, stats }) {
           <div className="hero-stats">
             {stats.map((item) => (
               <div key={item.label}>
-                <strong>{item.value}</strong>
+                <strong>
+                  <CountUpValue value={item.value} />
+                </strong>
                 <small>{item.label}</small>
               </div>
             ))}
@@ -845,7 +950,9 @@ function HomePage() {
               ["365", "24/7 Support Team"]
             ].map(([value, label]) => (
               <div key={label}>
-                <strong>{value}</strong>
+                <strong>
+                  <CountUpValue value={value} />
+                </strong>
                 <span>{label}</span>
               </div>
             ))}

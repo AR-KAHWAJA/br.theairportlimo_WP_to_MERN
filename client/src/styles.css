@@ -428,6 +428,12 @@ textarea {
   font-size: 24px;
 }
 
+.stat-value {
+  display: inline-block;
+  min-width: var(--stat-width, auto);
+  font-variant-numeric: tabular-nums;
+}
+
 .hero-stats small {
   font-size: 11px;
 }
