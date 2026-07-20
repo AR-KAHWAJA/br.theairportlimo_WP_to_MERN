@@ -1,0 +1,22 @@
+/* Button Styling */
+.elementor-element-508bf20 .elementor-button {
+    background-color: #585858 !important;
+    border-color: #585858 !important;
+    color: #ffffff !important;
+    border-radius: 25px !important;
+}
+
+/* Menu Item Highlight */
+.elementor-element-8c271bf .menu-item-56 > a {
+    background-color: #585858 !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+    padding: 5px 10px !important;
+    margin-top: 5px; /* Adjust vertical alignment if needed */
+}
+
+/* Adjust hover state for menu item to keep it readable */
+.elementor-element-8c271bf .menu-item-56 > a:hover {
+    background-color: #444444 !important;
+    color: #ffffff !important;
+}
