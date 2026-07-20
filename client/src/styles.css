@@ -458,14 +458,15 @@ textarea {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 34px;
-  margin-bottom: 26px;
-  border-radius: 8px;
-  padding: 0 16px;
+  min-height: 32px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  padding: 0 17px;
   color: #242424;
   background: #f1f1f1;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
+  line-height: 1;
 }
 
 .section-intro h2 {
