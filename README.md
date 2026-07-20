@@ -42,7 +42,8 @@ npm start
 The Express server serves `client/dist` in production on
 `http://localhost:5001` by default. The port was moved from `5000` to avoid the
 `EADDRINUSE` conflict shown when another local service is already using port
-`5000`.
+`5000`. If the preferred port is busy, the server now tries the next available
+port and prints the URL in the terminal.
 
 ## Environment
 

@@ -1,11 +1,14 @@
 import "dotenv/config";
 import cors from "cors";
 import express from "express";
+import { createServer } from "node:http";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
-const port = process.env.PORT || 5001;
+const parsedPort = Number.parseInt(process.env.PORT || "5001", 10);
+const preferredPort = Number.isInteger(parsedPort) && parsedPort > 0 ? parsedPort : 5001;
+const maxPortAttempts = 10;
 let database;
 const memoryStore = {
   contacts: [],
@@ -117,19 +120,26 @@ app.use((error, _request, response, _next) => {
   });
 });
 
-connectDatabase().then(() => {
-  const server = app.listen(port, () => {
-    console.log(`BlinkRide API listening on http://localhost:${port}`);
-  });
+function startServer(port, attempt = 0) {
+  const server = createServer(app);
 
   server.on("error", (error) => {
-    if (error.code === "EADDRINUSE") {
-      console.error(
-        `Port ${port} is already in use. Set PORT to another value and run npm start again.`
-      );
-      process.exit(1);
+    if (error.code === "EADDRINUSE" && attempt < maxPortAttempts) {
+      const nextPort = port + 1;
+      console.warn(`Port ${port} is already in use. Trying ${nextPort}...`);
+      startServer(nextPort, attempt + 1);
+      return;
     }
 
-    throw error;
+    console.error(error);
+    process.exit(1);
   });
+
+  server.listen(port, () => {
+    console.log(`BlinkRide API listening on http://localhost:${port}`);
+  });
+}
+
+connectDatabase().then(() => {
+  startServer(preferredPort);
 });
